@@ -1,4 +1,4 @@
-# Everything Wrong with Firestore
+# Everything Wrong with BigQuery
 
 > nuances, missing features, strange API, things to watchout, and wishlist
 
