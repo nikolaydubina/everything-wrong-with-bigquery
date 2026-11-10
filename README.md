@@ -6,5 +6,5 @@
 
 Say you want to store 3072 dim float vector in BigQuery column, and then read first 768 floats of it pushed down to BigQuery in binary driver. — **This is impossible.**
 
-- BigQuery does not support binary reader over prefix of array column. this means that matryshka-style embeddings stored in BigQuery (e.g. `gemini-embedding-2) cannot take prefix effectively in binary reader form.
+- BigQuery does not support binary reader over prefix of array column.
 - BigQuery cannot have generated column on array float columns.
