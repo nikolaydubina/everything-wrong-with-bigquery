@@ -23,3 +23,17 @@ SELECT
   ) AS embedding
 FROM my-embedding-table
 ```
+
+Benchmarks
+
+```bash
+$ go test -bench=.
+BenchmarkQueryJSON
+BenchmarkQueryJSON-16        21721577667 ns/op  21.72  first-row-s  0.05629 payload-MB/s  9.207 rows/s
+BenchmarkReadSessionArrow
+BenchmarkReadSessionArrow-16  3468335750 ns/op   3.468 first-row-s  0.3543  payload-MB/s  57.67 rows/s  24589 wire-B/row
+```
+
+2,000-row table of 3072 float64 (49 MB), each reader stops after 200 rows,
+so the query row above is almost entirely the `QUALIFY` prologue and the binary row includes one session setup.
+Same comparison on a 2.8M-row table: 26.99 s / 10.09 rows/s against 3.62 s (**7.5x**) / 348.8 rows/s (**34.6x**) .
