@@ -9,7 +9,10 @@ Say you want to store 3072 dim float vector in BigQuery column, and then read fi
 - BigQuery does not support binary reader over prefix of array column.
 - BigQuery cannot have generated column on array float columns.
 
-Best you can do is pushing down query and reading text back, no binary driver allowed here, transport of your floats are in strings here.
+Best you can do is pushing down query and reading text back, no binary driver allowed here, transport of your floats is in strings here.
+Compare, 20 Bytes string + decoding CPU cost vs 8 Bytes binary and zero CPU cost.
+This is 2.5x wasted bandwidth and extra burned CPU.
+On 1TB table you are paying 2.5TB transfer for aboslutely no good reason.
 
 ```sql
 SELECT
